@@ -2,20 +2,28 @@ version: '3'
 services:
   web:
     build: .
-    command: python main.py
+    command: python testcasehub/app.py 
     ports:
-      - "8080:8080"
-  
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - "8000:8000"
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+      - mongodb
+    links:
+      - mongodb
 
-  adminer:
-    image: adminer
-    restart: always
+  redis:
+    image: redis
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+     - ./data/db:/data/db
     ports:
-      - 3001:8080
+        - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null
