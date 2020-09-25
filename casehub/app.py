@@ -9,8 +9,8 @@ def create_app(config_filename):
     api_v1 = Blueprint("api", __name__, url_prefix="/api/1")
     api = Api(api_v1, version="1.0", title="CaseHub Backend API", description="",)
 
-    from .cases.resources import api as cases_api
-    from .suites.resources import api as suites_api
+    from cases.resources import api as cases_api
+    from suites.resources import api as suites_api
     api.add_namespace(cases_api)
     api.add_namespace(suites_api)
 
