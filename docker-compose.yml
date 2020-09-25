@@ -2,9 +2,9 @@ version: '3'
 services:
   web:
     build: .
-    command: python testcasehub/app.py 
+    command: python /code/casehub/app.py
     ports:
-      - "8000:8000"
+      - "5000:5000"
     volumes:
       - .:/code
     depends_on:
@@ -26,4 +26,4 @@ services:
      - ./data/db:/data/db
     ports:
         - 27017:27017
-    command: mongod --smallfiles --logpath=/dev/null
+    command: mongod --logpath=/dev/null
