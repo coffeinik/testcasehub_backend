@@ -3,10 +3,25 @@ from mongoengine.errors import DoesNotExist
 from flask_restx import Api, Resource, fields, Namespace
 
 from .models import ProjectModel
-from .forms import project_request_fields, project_response_fields
-
 
 api = Namespace('projects')
+
+
+project_request_fields = api.model(
+    'Project', 
+    {
+        'name': fields.String(required=True, description='Project name'),
+    }
+)
+
+
+project_response_fields = api.model(
+    'Project', 
+    {
+        'id': fields.String(required=False, description='Project id', attribute='pk'),
+        'name': fields.String(required=True, description='Project name'),
+    }
+)
 
 
 def abort_if_project_doesnt_exist(project_id):

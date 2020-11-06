@@ -1,3 +1,4 @@
+flask-cors
 flask-mongoengine
 flask-restx
 flask-shell-ipython

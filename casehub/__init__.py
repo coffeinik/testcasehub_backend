@@ -1,4 +1,5 @@
 from flask import Flask, Blueprint
+from flask_cors import CORS
 from flask_mongoengine import MongoEngine
 from flask_restx import Api
 
@@ -13,6 +14,9 @@ def create_app(config_filename='config.yaml', debug=True):
     
     db = MongoEngine()
     db.init_app(app)
+
+    cors = CORS(app)
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     from .cases.resources import api as cases_api
     from .suites.resources import api as suites_api
